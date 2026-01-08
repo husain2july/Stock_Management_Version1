@@ -7,6 +7,7 @@ import yfinance as yf
 import pandas as pd
 from tabulate import tabulate
 
+
 """
 Stock Data Fetcher - 1500 Stocks with BATCH PROCESSING
 Splits into 3 batches of 500 stocks each
@@ -460,8 +461,9 @@ def main():
         
         # Small delay between batches
         if i < num_batches - 1:
+            import time as tm
             logging.info(f"⏳ Waiting 2 seconds before next batch...")
-            time.sleep(2)
+            tm.sleep(2)
     
     # Final statistics
     total, unique_stocks, latest = get_stats()
