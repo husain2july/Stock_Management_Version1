@@ -7,6 +7,7 @@ import yfinance as yf
 import pandas as pd
 import logging
 from tabulate import tabulate
+import time
 
 """
 Stock Data Fetcher - BATCH PROCESSING
@@ -268,7 +269,7 @@ STOCK_LIST = [
 'MOTILALOFS.NS', 'MOTILALOSL.NS', 'MOXSH.NS', 'MPHASIS.NS', 'MPSLTD.NS',
 'MRF.NS', 'MRO-TEK.NS', 'MRPL.NS', 'MSP.NS', 'MSTCLTD.NS',
 'MTEDUCARE.NS', 'MTARTECH.NS', 'MUKANDLTD.NS', 'MUKTA.NS', 'MUKTAARTS.NS',
-'MULTIBASE.NS', 'MULTILOGIC.NS', 'MULTIMETALS.NS', 'MUNDRAPORT.NS', 'MURUDCERA.NS',
+'MULTIBASE.NS', 'MULTILOGIC.NS', 'MULTALS.NS', 'MUNDRAPORT.NS', 'MURUDCERA.NS',
 'MUTHOOTCAP.NS', 'MUTHOOTFIN.NS', 'MVGJL.NS', 'NAC.NS', 'NAGAFERT.NS',
 'NAGAIND.NS', 'NAGREEKCAP.NS', 'NAHARCAP.NS', 'NAHAREXP.NS', 'NAHARPOLY.NS',
 'NAHARSPING.NS', 'NAINCO.NS', 'NANDAN.NS', 'NARMADA.NS', 'NASPERS.NS',
@@ -290,13 +291,13 @@ def create_database():
         CREATE TABLE IF NOT EXISTS stock_1min_data (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             symbol TEXT NOT NULL,
-            datetime DATETIME NOT NULL,
+            date DATE NOT NULL,
             open REAL,
             high REAL,
             low REAL,
             close REAL,
             volume INTEGER,
-            fetched_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            fetched_at DATE DEFAULT CURRENT_STAMP,
             UNIQUE(symbol, datetime)
         )
     ''')
@@ -454,9 +455,8 @@ def main():
 
     # Small delay between batches
         if i < num_batches - 1:
-            import time as tm
             logging.info(f"⏳ Waiting 2 seconds before next batch...")
-            tm.sleep(2)
+            time.sleep(2)
     
     # Final statistics
     total, unique_stocks, latest = get_stats()
