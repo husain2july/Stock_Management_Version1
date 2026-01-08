@@ -459,11 +459,11 @@ def main():
             total_candles_all += candles
             total_stocks_all += stocks
         
-        # Small delay between batches
-       # if i < num_batches - 1:
-         # import time as tm
-           # logging.info(f"⏳ Waiting 2 seconds before next batch...")
-            # tm.sleep(2)
+  # Small delay between batches
+        if i < num_batches - 1:
+            import time as tm
+            logging.info(f"⏳ Waiting 2 seconds before next batch...")
+            tm.sleep(2)
     
     # Final statistics
     total, unique_stocks, latest = get_stats()
